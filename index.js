@@ -4,6 +4,8 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { Player } = require('discord-player');
 const extractor = require('@discord-player/extractor');
+
+// Load config from environment variables OR config.json
 const config = {
     token: process.env.BOT_TOKEN || require('./config.json').token,
     prefix: process.env.PREFIX || "!"
@@ -101,9 +103,13 @@ client.on('messageCreate', async (message) => {
             }
 
             // Search for the track
+            console.log(`Searching for: "${query}"`);
             const searchResult = await player.search(query, {
                 requestedBy: message.author
             });
+            
+            console.log(`Search result:`, searchResult);
+            console.log(`Tracks found:`, searchResult?.tracks?.length || 0);
 
             if (!searchResult || !searchResult.tracks.length) {
                 return message.reply("❌ No results found! Try a different search term or URL.");
