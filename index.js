@@ -4,7 +4,10 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { Player } = require('discord-player');
 const extractor = require('@discord-player/extractor');
-const config = require('./config.json');
+const config = {
+    token: process.env.BOT_TOKEN || require('./config.json').token,
+    prefix: process.env.PREFIX || "!"
+};
 
 // -------------------------
 // Create Discord client
