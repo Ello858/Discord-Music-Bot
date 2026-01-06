@@ -27,6 +27,7 @@ const client = new Client({
 // Create the player
 // -------------------------
 const player = new Player(client, {
+    skipFFmpeg: false, // Force FFmpeg usage
     ytdlOptions: {
         quality: 'highestaudio',
         highWaterMark: 1 << 25,
