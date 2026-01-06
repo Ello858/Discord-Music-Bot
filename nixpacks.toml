@@ -1,2 +1,5 @@
 [phases.setup]
-   aptPkgs = ['ffmpeg']
+aptPkgs = ['ffmpeg']
+
+[start]
+cmd = 'ffmpeg -version && node index.js'
