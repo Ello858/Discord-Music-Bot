@@ -50,6 +50,16 @@ client.once('ready', async () => {
     console.log(`Discord.js version: ${require('discord.js').version}`);
     console.log(`discord-player version: ${require('discord-player/package.json').version}`);
     
+    // Check for FFmpeg
+    const { exec } = require('child_process');
+    exec('ffmpeg -version', (error, stdout, stderr) => {
+        if (error) {
+            console.log(`❌ FFmpeg not found: ${error.message}`);
+        } else {
+            console.log(`✅ FFmpeg found:`, stdout.split('\n')[0]);
+        }
+    });
+    
     // Register all default extractors (includes YouTube via play-dl)
     try {
         await player.extractors.loadMulti(extractor.DefaultExtractors);
