@@ -29,7 +29,8 @@ const client = new Client({
 const player = new Player(client, {
     ytdlOptions: {
         quality: 'highestaudio',
-        highWaterMark: 1 << 25
+        highWaterMark: 1 << 25,
+        filter: 'audioonly'
     }
 });
 
@@ -57,6 +58,23 @@ client.once('ready', async () => {
     }
     
     console.log(`==============================`);
+});
+
+// -------------------------
+// Player error events
+// -------------------------
+player.events.on('error', (queue, error) => {
+    console.log(`[Player Error] ${error.message}`);
+    console.log(error);
+});
+
+player.events.on('playerError', (queue, error) => {
+    console.log(`[Player Track Error] ${error.message}`);
+    console.log(error);
+});
+
+player.events.on('debug', (queue, message) => {
+    console.log(`[Debug] ${message}`);
 });
 
 // -------------------------
