@@ -131,14 +131,14 @@ client.on('messageCreate', async (message) => {
                 await queue.connect(voiceChannel);
             }
 
-            // Search for the track
-            console.log(`Searching for: "${query}"`);
-            const searchResult = await player.search(query, {
-                requestedBy: message.author
-            });
+            // Determine if it's a URL or search term
+            const isURL = query.startsWith('http://') || query.startsWith('https://');
             
-            console.log(`Search result:`, searchResult);
-            console.log(`Tracks found:`, searchResult?.tracks?.length || 0);
+            // Search for the track with explicit engine selection
+            const searchResult = await player.search(query, {
+                requestedBy: message.author,
+                searchEngine: isURL ? undefined : 'youtubeSearch' // Force YouTube for search terms
+            });
 
             if (!searchResult || !searchResult.tracks.length) {
                 return message.reply("❌ No results found! Try a different search term or URL.");
