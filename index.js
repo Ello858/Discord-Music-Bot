@@ -63,6 +63,10 @@ client.once('ready', async () => {
     // Register all default extractors (includes YouTube via play-dl)
     try {
         await player.extractors.loadMulti(extractor.DefaultExtractors);
+        
+        // Set default search engine to YouTube
+        player.options.queryCache.enabled = true;
+        
         console.log(`✅ Extractors loaded successfully!`);
     } catch (error) {
         console.log(`❌ Extractor error:`, error.message);
@@ -131,13 +135,9 @@ client.on('messageCreate', async (message) => {
                 await queue.connect(voiceChannel);
             }
 
-            // Determine if it's a URL or search term
-            const isURL = query.startsWith('http://') || query.startsWith('https://');
-            
-            // Search for the track with explicit engine selection
+            // Search - just pass the query directly, player will handle it
             const searchResult = await player.search(query, {
-                requestedBy: message.author,
-                searchEngine: isURL ? undefined : 'youtubeSearch' // Force YouTube for search terms
+                requestedBy: message.author
             });
 
             if (!searchResult || !searchResult.tracks.length) {
