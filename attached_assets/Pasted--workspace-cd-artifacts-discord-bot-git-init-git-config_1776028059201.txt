@@ -1,0 +1,83 @@
+~/workspace$ cd artifacts/discord-bot
+git init
+git config user.email "ello.txt@users.noreply.github.com"
+git config user.name "ello.txt"
+git add .
+git commit -m "Initial commit - ElloMusic Discord Bot"
+git branch -M main
+git remote add origin "https://Ello858:${GITHUB_TOKEN}@github.com/Ello858/Discord-Music-Bot.git"
+git push -u origin main
+Initialized empty Git repository in /home/runner/workspace/artifacts/discord-bot/.git/
+[main (root-commit) 407758d] Initial commit - ElloMusic Discord Bot
+ 69 files changed, 18303 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 LICENSE
+ create mode 100644 README.md
+ create mode 100644 UI/colors/colors.js
+ create mode 100644 UI/emojis/emoji.js
+ create mode 100644 UI/emojis/emojiData.js
+ create mode 100644 UI/icons/musicicons.js
+ create mode 100644 bot.js
+ create mode 100644 commands/basic/help.js
+ create mode 100644 commands/basic/ping.js
+ create mode 100644 commands/basic/stats.js
+ create mode 100644 commands/basic/support.js
+ create mode 100644 commands/music/autoplay.js
+ create mode 100644 commands/music/filters.js
+ create mode 100644 commands/music/jump.js
+ create mode 100644 commands/music/move.js
+ create mode 100644 commands/music/np.js
+ create mode 100644 commands/music/pause.js
+ create mode 100644 commands/music/play.js
+ create mode 100644 commands/music/queue.js
+ create mode 100644 commands/music/remove.js
+ create mode 100644 commands/music/resume.js
+ create mode 100644 commands/music/search.js
+ create mode 100644 commands/music/seek.js
+ create mode 100644 commands/music/shuffle.js
+ create mode 100644 commands/music/skip.js
+ create mode 100644 commands/music/stop.js
+ create mode 100644 commands/music/trackinfo.js
+ create mode 100644 commands/music/volume.js
+ create mode 100644 commands/music/voteskip.js
+ create mode 100644 commands/playlist/addsong.js
+ create mode 100644 commands/playlist/allplaylists.js
+ create mode 100644 commands/playlist/createplaylist.js
+ create mode 100644 commands/playlist/deleteplaylist.js
+ create mode 100644 commands/playlist/deletesong.js
+ create mode 100644 commands/playlist/myplaylists.js
+ create mode 100644 commands/playlist/playcustomplaylist.js
+ create mode 100644 commands/playlist/savequeue.js
+ create mode 100644 commands/playlist/showsongs.js
+ create mode 100644 commands/utility/emoji.js
+ create mode 100644 commands/utility/history.js
+ create mode 100644 commands/utility/language.js
+ create mode 100644 commands/utility/twentyfourseven.js
+ create mode 100644 config.js
+ create mode 100644 events/clientReady.js
+ create mode 100644 events/interactionCreate.js
+ create mode 100644 index.html
+ create mode 100644 index.js
+ create mode 100644 languages/de.js
+ create mode 100644 languages/en.js
+ create mode 100644 languages/es.js
+ create mode 100644 languages/fr.js
+ create mode 100644 languages/ja.js
+ create mode 100644 languages/ko.js
+ create mode 100644 languages/ru.js
+ create mode 100644 lavalink.js
+ create mode 100644 mongodb.js
+ create mode 100644 musicard.png
+ create mode 100644 package.json
+ create mode 100644 player.js
+ create mode 100644 utils/commandBuilder.js
+ create mode 100644 utils/commandCleaner.js
+ create mode 100644 utils/commandManager.js
+ create mode 100644 utils/languageLoader.js
+ create mode 100644 utils/musicCard.js
+ create mode 100644 utils/playerValidation.js
+ create mode 100644 utils/responseHandler.js
+ create mode 100644 utils/statusManager.js
+ create mode 100644 utils/voiceChannelCheck.js
+remote: Permission to Ello858/Discord-Music-Bot.git denied to Ello858.
+fatal: unable to access 'https://github.com/Ello858/Discord-Music-Bot.git/': The requested URL returned error: 403
