@@ -69,7 +69,7 @@ module.exports = {
                 footer: "**Sélectionnez une catégorie ci-dessous pour voir les commandes détaillées.**"
             },
             footer: {
-                version: "**Version 1.4** • Bot Musical Prime",
+                version: "**Version 1.0** • Music Bot",
                 developer: "Développé par ello.txt / https://ello.txt.com"
             },
             selectMenu: {
@@ -102,7 +102,7 @@ module.exports = {
                 noDescription: "Aucune description disponible."
             },
             footer: {
-                version: "**Version 1.4** • Bot Musical Prime",
+                version: "**Version 1.0** • Music Bot",
                 developer: "Développé par ello.txt / https://ello.txt.com"
             },
             buttons: {
@@ -160,7 +160,7 @@ module.exports = {
         },
         header: {
             title: "# Latence du Bot",
-            botName: "**{botName}** - Bot Musical Prime",
+            botName: "**{botName}** - Music Bot",
             subtitle: "Vérifiez le temps de réponse et l'état de connexion du bot"
         },
         metrics: {
@@ -175,7 +175,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**Version 1.4** • Bot Musical Prime",
+            version: "**Version 1.0** • Music Bot",
             developer: "Développé par ello.txt / https://ello.txt.com"
         },
         errors: {
@@ -191,7 +191,7 @@ module.exports = {
         },
         header: {
             title: "# Statistiques du Bot",
-            botName: "**{botName}** - Bot Musical Prime",
+            botName: "**{botName}** - Music Bot",
             developer: "Développé par ello.txt / https://ello.txt.com"
         },
         botInfo: {
@@ -228,7 +228,7 @@ module.exports = {
             commands: "• Commandes : {count}"
         },
         footer: {
-            version: "**Version 1.4** • Bot Musical Prime",
+            version: "**Version 1.0** • Music Bot",
             developer: "Développé par ello.txt / https://ello.txt.com"
         },
         errors: {
@@ -244,7 +244,7 @@ module.exports = {
         },
         header: {
             title: "# Support et Liens",
-            botName: "**{botName}** - Bot Musical Prime",
+            botName: "**{botName}** - Music Bot",
             subtitle: "Obtenez de l'aide, signalez des problèmes ou connectez-vous avec nous !"
         },
         links: {
@@ -271,7 +271,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**Version 1.4** • Bot Musical Prime",
+            version: "**Version 1.0** • Music Bot",
             developer: "Développé par ello.txt / https://ello.txt.com"
         },
         buttons: {

@@ -66,7 +66,7 @@ module.exports = {
 
             const footerContainer = buildPaleCard(
                 `${getEmoji('info')} Bot`,
-                [`**Version 1.5** • Prime Music Bot\nDeveloped by ello.txt / https://github.com/Ello858`]
+                [`**Version 1.0** • Music Bot\nDeveloped by ello.txt / https://github.com/Ello858`]
             );
 
             const components = [historyContainer, footerContainer];

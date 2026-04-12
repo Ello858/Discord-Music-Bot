@@ -69,7 +69,7 @@ module.exports = {
                 footer: "**아래에서 카테고리를 선택하여 자세한 명령어를 확인하세요.**"
             },
             footer: {
-                version: "**버전 1.4** • Prime Music Bot",
+                version: "**버전 1.0** • Music Bot",
                 developer: "ello.txt / https://ello.txt.com 개발"
             },
             selectMenu: {
@@ -102,7 +102,7 @@ module.exports = {
                 noDescription: "설명을 사용할 수 없습니다."
             },
             footer: {
-                version: "**버전 1.4** • Prime Music Bot",
+                version: "**버전 1.0** • Music Bot",
                 developer: "ello.txt / https://ello.txt.com 개발"
             },
             buttons: {
@@ -160,7 +160,7 @@ module.exports = {
         },
         header: {
             title: "# 봇 지연 시간",
-            botName: "**{botName}** - Prime Music Bot",
+            botName: "**{botName}** - Music Bot",
             subtitle: "봇의 응답 시간 및 연결 상태 확인"
         },
         metrics: {
@@ -175,7 +175,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**버전 1.4** • Prime Music Bot",
+            version: "**버전 1.0** • Music Bot",
             developer: "ello.txt / https://ello.txt.com 개발"
         },
         errors: {
@@ -191,7 +191,7 @@ module.exports = {
         },
         header: {
             title: "# 봇 통계",
-            botName: "**{botName}** - Prime Music Bot",
+            botName: "**{botName}** - Music Bot",
             developer: "ello.txt / https://ello.txt.com 개발"
         },
         botInfo: {
@@ -228,7 +228,7 @@ module.exports = {
             commands: "• 명령어: {count}"
         },
         footer: {
-            version: "**버전 1.4** • Prime Music Bot",
+            version: "**버전 1.0** • Music Bot",
             developer: "ello.txt / https://ello.txt.com 개발"
         },
         errors: {
@@ -244,7 +244,7 @@ module.exports = {
         },
         header: {
             title: "# 지원 및 링크",
-            botName: "**{botName}** - Prime Music Bot",
+            botName: "**{botName}** - Music Bot",
             subtitle: "도움을 받고, 문제를 보고하거나 우리와 연결하세요!"
         },
         links: {
@@ -271,7 +271,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**버전 1.4** • Prime Music Bot",
+            version: "**버전 1.0** • Music Bot",
             developer: "ello.txt / https://ello.txt.com 개발"
         },
         buttons: {
