@@ -70,7 +70,7 @@ module.exports = {
             },
             footer: {
                 version: "**Version 1.4** • Prime Music Bot",
-                developer: "Developed by GlaceYT / https://GlaceYT.com"
+                developer: "Developed by ello.txt / https://github.com/Ello858"
             },
             selectMenu: {
                 placeholder: "📂 Select a category to view commands...",
@@ -103,7 +103,7 @@ module.exports = {
             },
             footer: {
                 version: "**Version 1.4** • Prime Music Bot",
-                developer: "Developed by GlaceYT / https://GlaceYT.com"
+                developer: "Developed by ello.txt / https://github.com/Ello858"
             },
             buttons: {
                 backToMain: "🏠 Back to Main Menu",
@@ -176,7 +176,7 @@ module.exports = {
         },
         footer: {
             version: "**Version 1.4** • Prime Music Bot",
-            developer: "Developed by GlaceYT / https://GlaceYT.com"
+            developer: "Developed by ello.txt / https://github.com/Ello858"
         },
         errors: {
             title: "## ❌ Error",
@@ -192,7 +192,7 @@ module.exports = {
         header: {
             title: "# Bot Statistics",
             botName: "**{botName}** - Prime Music Bot",
-            developer: "Developed by GlaceYT / https://GlaceYT.com"
+            developer: "Developed by ello.txt / https://github.com/Ello858"
         },
         botInfo: {
             title: "## Bot Information",
@@ -229,7 +229,7 @@ module.exports = {
         },
         footer: {
             version: "**Version 1.4** • Prime Music Bot",
-            developer: "Developed by GlaceYT / https://GlaceYT.com"
+            developer: "Developed by ello.txt / https://github.com/Ello858"
         },
         errors: {
             title: "## ❌ Error",
@@ -272,7 +272,7 @@ module.exports = {
         },
         footer: {
             version: "**Version 1.4** • Prime Music Bot",
-            developer: "Developed by GlaceYT / https://GlaceYT.com"
+            developer: "Developed by ello.txt / https://github.com/Ello858"
         },
         buttons: {
             supportServer: "Support Server",

@@ -15,7 +15,7 @@ module.exports = {
   helpBannerUrl: "https://i.ibb.co/GfTxbJfC/7-edited.png",
   activityName: "YouTube Music",
   activityType: "LISTENING",
-  SupportServer: "https://discord.gg/xQF9f9yUEM",
+  SupportServer: "https://github.com/Ello858/Discord-Music-Bot",
   embedTimeout: 5,
   showProgressBar: false,
   showVisualizer: false,
@@ -25,7 +25,7 @@ module.exports = {
   errorLog: "",
   nodes: [
     {
-      name: process.env.LAVALINK_NAME || "GlaceYT",
+      name: process.env.LAVALINK_NAME || "ElloMusic",
       password: process.env.LAVALINK_PASSWORD || "glace",
       host: process.env.LAVALINK_HOST || "de-01.strixnodes.com",
       port: parseInt(process.env.LAVALINK_PORT || "2010"),

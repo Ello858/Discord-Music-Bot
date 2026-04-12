@@ -70,7 +70,7 @@ module.exports = {
             },
             footer: {
                 version: "**バージョン 1.4** • プライムミュージックボット",
-                developer: "GlaceYT / https://GlaceYT.com によって開発"
+                developer: "ello.txt / https://ello.txt.com によって開発"
             },
             selectMenu: {
                 placeholder: "📂 コマンドを表示するカテゴリを選択...",
@@ -103,7 +103,7 @@ module.exports = {
             },
             footer: {
                 version: "**バージョン 1.4** • プライムミュージックボット",
-                developer: "GlaceYT / https://GlaceYT.com によって開発"
+                developer: "ello.txt / https://ello.txt.com によって開発"
             },
             buttons: {
                 backToMain: "🏠 メインメニューに戻る",
@@ -176,7 +176,7 @@ module.exports = {
         },
         footer: {
             version: "**バージョン 1.4** • プライムミュージックボット",
-            developer: "GlaceYT / https://GlaceYT.com によって開発"
+            developer: "ello.txt / https://ello.txt.com によって開発"
         },
         errors: {
             title: "## ❌ エラー",
@@ -192,7 +192,7 @@ module.exports = {
         header: {
             title: "# ボット統計",
             botName: "**{botName}** - プライムミュージックボット",
-            developer: "GlaceYT / https://GlaceYT.com によって開発"
+            developer: "ello.txt / https://ello.txt.com によって開発"
         },
         botInfo: {
             title: "## ボット情報",
@@ -229,7 +229,7 @@ module.exports = {
         },
         footer: {
             version: "**バージョン 1.4** • プライムミュージックボット",
-            developer: "GlaceYT / https://GlaceYT.com によって開発"
+            developer: "ello.txt / https://ello.txt.com によって開発"
         },
         errors: {
             title: "## ❌ エラー",
@@ -272,7 +272,7 @@ module.exports = {
         },
         footer: {
             version: "**バージョン 1.4** • プライムミュージックボット",
-            developer: "GlaceYT / https://GlaceYT.com によって開発"
+            developer: "ello.txt / https://ello.txt.com によって開発"
         },
         buttons: {
             supportServer: "サポートサーバー",

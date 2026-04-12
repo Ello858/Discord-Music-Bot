@@ -52,15 +52,12 @@ module.exports = {
             const deferred = await safeDeferReply(interaction);
             if (!deferred && !interaction.deferred && !interaction.replied) return;
 
-            const supportServerLink = "https://discord.gg/xQF9f9yUEM";
-            const githubLink = "https://github.com/GlaceYT";
-            const websiteLink = "https://www.glaceyt.com";
-            const youtubeLink = "https://www.youtube.com/@GlaceYT";
+            const githubProfileLink = "https://github.com/Ello858";
+            const githubBotLink = "https://github.com/Ello858/Discord-Music-Bot";
 
             const buttonRow = new ActionRowBuilder().addComponents(
-                createLinkButton(t.buttons.supportServer, supportServerLink, 'support'),
-                createLinkButton(t.buttons.github, githubLink, 'github'),
-                createLinkButton(t.buttons.youtube, youtubeLink, 'play')
+                createLinkButton('GitHub Profile', githubProfileLink, 'github'),
+                createLinkButton('Bot Repository', githubBotLink, 'github')
             );
 
             const sections = [
@@ -71,21 +68,13 @@ module.exports = {
                 [
                     t.links.title,
                     '',
-                    `${getEmoji('support')} ${t.links.supportServer.title}`,
-                    t.links.supportServer.description,
-                    withExternalHint(t.links.supportServer.link.replace('{url}', supportServerLink)),
+                    `${getEmoji('github')} GitHub Profile`,
+                    'View the developer\'s GitHub profile',
+                    withExternalHint(githubProfileLink),
                     '',
-                    `${getEmoji('github')} ${t.links.github.title}`,
-                    t.links.github.description,
-                    withExternalHint(t.links.github.link.replace('{url}', githubLink)),
-                    '',
-                    `${getEmoji('play')} ${t.links.youtube.title}`,
-                    t.links.youtube.description,
-                    withExternalHint(t.links.youtube.link.replace('{url}', youtubeLink)),
-                    '',
-                    `${getEmoji('cloud')} ${t.links.website.title}`,
-                    t.links.website.description,
-                    withExternalHint(t.links.website.link.replace('{url}', websiteLink))
+                    `${getEmoji('github')} Bot Repository`,
+                    'View the source code for this bot',
+                    withExternalHint(githubBotLink)
                 ].join('\n'),
                 [
                     `${getEmoji('info')} ${t.footer.version}`
