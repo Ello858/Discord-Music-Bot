@@ -70,6 +70,8 @@ autoInstallPeers: false
 onlyBuiltDependencies:
   - '@swc/core'
   - esbuild
+  - ffmpeg-static
+  - mediaplex
   - msw
   - unrs-resolver
 
