@@ -10,7 +10,7 @@ module.exports = {
   setupFilePath: './commands/setup.json',
   commandsDir: './commands',
   embedColor: "#e11d2e",
-  customEmoji: true,
+  customEmoji: false,
   emojiTheme: "redwhite",
   helpBannerUrl: "https://i.ibb.co/GfTxbJfC/7-edited.png",
   activityName: "YouTube Music",
