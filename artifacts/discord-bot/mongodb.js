@@ -55,7 +55,7 @@ async function connectToDatabase() {
     }
 }
 
-const db = client ? client.db("PrimeMusicSSRR") : null;
+const db = client ? client.db("ElloMusic") : null;
 const playlistCollection = db ? db.collection("SongPlayLists") : null;
 const autoplayCollection = db ? db.collection("AutoplaySettings") : null;
 const languageCollection = db ? db.collection("GuildLanguages") : null;

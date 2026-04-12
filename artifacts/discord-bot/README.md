@@ -2,7 +2,7 @@
 
 # ElloMusic - Discord Music Bot
 
-![Version](https://img.shields.io/badge/version-1.5-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg)
 ![Discord.js](https://img.shields.io/badge/discord.js-v14-blue.svg)

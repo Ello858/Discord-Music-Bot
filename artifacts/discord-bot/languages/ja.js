@@ -69,7 +69,7 @@ module.exports = {
                 footer: "**詳細なコマンドを表示するには、以下のカテゴリを選択してください。**"
             },
             footer: {
-                version: "**バージョン 1.4** • プライムミュージックボット",
+                version: "**バージョン 1.0** • Music Bot",
                 developer: "ello.txt / https://ello.txt.com によって開発"
             },
             selectMenu: {
@@ -102,7 +102,7 @@ module.exports = {
                 noDescription: "説明がありません。"
             },
             footer: {
-                version: "**バージョン 1.4** • プライムミュージックボット",
+                version: "**バージョン 1.0** • Music Bot",
                 developer: "ello.txt / https://ello.txt.com によって開発"
             },
             buttons: {
@@ -160,7 +160,7 @@ module.exports = {
         },
         header: {
             title: "# ボットのレイテンシ",
-            botName: "**{botName}** - プライムミュージックボット",
+            botName: "**{botName}** - Music Bot",
             subtitle: "ボットの応答時間と接続状態を確認"
         },
         metrics: {
@@ -175,7 +175,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**バージョン 1.4** • プライムミュージックボット",
+            version: "**バージョン 1.0** • Music Bot",
             developer: "ello.txt / https://ello.txt.com によって開発"
         },
         errors: {
@@ -191,7 +191,7 @@ module.exports = {
         },
         header: {
             title: "# ボット統計",
-            botName: "**{botName}** - プライムミュージックボット",
+            botName: "**{botName}** - Music Bot",
             developer: "ello.txt / https://ello.txt.com によって開発"
         },
         botInfo: {
@@ -228,7 +228,7 @@ module.exports = {
             commands: "• コマンド: {count}"
         },
         footer: {
-            version: "**バージョン 1.4** • プライムミュージックボット",
+            version: "**バージョン 1.0** • Music Bot",
             developer: "ello.txt / https://ello.txt.com によって開発"
         },
         errors: {
@@ -244,7 +244,7 @@ module.exports = {
         },
         header: {
             title: "# サポートとリンク",
-            botName: "**{botName}** - プライムミュージックボット",
+            botName: "**{botName}** - Music Bot",
             subtitle: "ヘルプを取得したり、問題を報告したり、私たちとつながりましょう！"
         },
         links: {
@@ -271,7 +271,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**バージョン 1.4** • プライムミュージックボット",
+            version: "**バージョン 1.0** • Music Bot",
             developer: "ello.txt / https://ello.txt.com によって開発"
         },
         buttons: {

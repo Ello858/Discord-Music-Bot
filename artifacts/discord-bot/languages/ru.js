@@ -69,7 +69,7 @@ module.exports = {
                 footer: "**Выберите категорию ниже для просмотра подробных команд.**"
             },
             footer: {
-                version: "**Версия 1.4** • Прайм музыкальный бот",
+                version: "**Версия 1.0** • Music Bot",
                 developer: "Разработано ello.txt / https://ello.txt.com"
             },
             selectMenu: {
@@ -102,7 +102,7 @@ module.exports = {
                 noDescription: "Описание недоступно."
             },
             footer: {
-                version: "**Версия 1.4** • Прайм музыкальный бот",
+                version: "**Версия 1.0** • Music Bot",
                 developer: "Разработано ello.txt / https://ello.txt.com"
             },
             buttons: {
@@ -160,7 +160,7 @@ module.exports = {
         },
         header: {
             title: "# Задержка бота",
-            botName: "**{botName}** - Прайм музыкальный бот",
+            botName: "**{botName}** - Music Bot",
             subtitle: "Проверьте время отклика и статус соединения бота"
         },
         metrics: {
@@ -175,7 +175,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**Версия 1.4** • Прайм музыкальный бот",
+            version: "**Версия 1.0** • Music Bot",
             developer: "Разработано ello.txt / https://ello.txt.com"
         },
         errors: {
@@ -191,7 +191,7 @@ module.exports = {
         },
         header: {
             title: "# Статистика бота",
-            botName: "**{botName}** - Прайм музыкальный бот",
+            botName: "**{botName}** - Music Bot",
             developer: "Разработано ello.txt / https://ello.txt.com"
         },
         botInfo: {
@@ -228,7 +228,7 @@ module.exports = {
             commands: "• Команд: {count}"
         },
         footer: {
-            version: "**Версия 1.4** • Прайм музыкальный бот",
+            version: "**Версия 1.0** • Music Bot",
             developer: "Разработано ello.txt / https://ello.txt.com"
         },
         errors: {
@@ -244,7 +244,7 @@ module.exports = {
         },
         header: {
             title: "# Поддержка и ссылки",
-            botName: "**{botName}** - Прайм музыкальный бот",
+            botName: "**{botName}** - Music Bot",
             subtitle: "Получите помощь, сообщите о проблемах или свяжитесь с нами!"
         },
         links: {
@@ -271,7 +271,7 @@ module.exports = {
             }
         },
         footer: {
-            version: "**Версия 1.4** • Прайм музыкальный бот",
+            version: "**Версия 1.0** • Music Bot",
             developer: "Разработано ello.txt / https://ello.txt.com"
         },
         buttons: {
