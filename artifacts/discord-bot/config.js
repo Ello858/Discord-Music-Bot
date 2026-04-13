@@ -4,9 +4,9 @@ module.exports = {
   TOKEN: process.env.BOT_TOKEN || "",
   language: "en",
   ownerID: (process.env.OWNER_ID ? process.env.OWNER_ID.split(",") : ["852865569786691636"]),
-  mongodbUri: process.env.MONGODB_URI || "mongodb+srv://shiva:shiva@musicbotyt.ouljywv.mongodb.net/?retryWrites=true&w=majority",
-  spotifyClientId: process.env.SPOTIFY_CLIENT_ID || "d92baed9605a45a39ed7c2a2d960b1c1",
-  spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET || "e9b29f6739de4315bc03b6d8a8e93b03",
+  mongodbUri: process.env.MONGODB_URI || "",
+  spotifyClientId: process.env.SPOTIFY_CLIENT_ID || "",
+  spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET || "",
   setupFilePath: './commands/setup.json',
   commandsDir: './commands',
   embedColor: "#e11d2e",
@@ -26,7 +26,7 @@ module.exports = {
   nodes: [
     {
       name: process.env.LAVALINK_NAME || "ElloMusic",
-      password: process.env.LAVALINK_PASSWORD || "glace",
+      password: process.env.LAVALINK_PASSWORD || "",
       host: process.env.LAVALINK_HOST || "de-01.strixnodes.com",
       port: parseInt(process.env.LAVALINK_PORT || "2010"),
       secure: process.env.LAVALINK_SECURE === "true" ? true : false

@@ -54,3 +54,6 @@ externalPort = 80
 [userenv]
 
 [userenv.shared]
+LAVALINK_PASSWORD = "glace"
+LAVALINK_HOST = "de-01.strixnodes.com"
+LAVALINK_PORT = "2010"
