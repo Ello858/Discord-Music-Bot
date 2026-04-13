@@ -1,24 +1,5 @@
 const { createCanvas } = require("@napi-rs/canvas");
 
-const THEME = {
-    bg: "#0b0b14",
-    card: "#13131f",
-    cardBorder: "rgba(139, 92, 246, 0.18)",
-    accentBright: "#a78bfa",
-    accentMid: "#7c3aed",
-    accentDim: "rgba(139, 92, 246, 0.20)",
-    accentGlow: "rgba(139, 92, 246, 0.10)",
-    title: "#ffffff",
-    artist: "#a0a0c0",
-    metaText: "#5a5a78",
-    dotSep: "#3a3a58",
-    playBg: "#1c1c30",
-    playBorder: "rgba(139, 92, 246, 0.40)",
-    progressBg: "rgba(255, 255, 255, 0.08)",
-    nowPlayingLabel: "#8b5cf6",
-    timeText: "#6b6b90",
-};
-
 function clamp(v, min, max) {
     return Math.min(max, Math.max(min, v));
 }
@@ -43,9 +24,9 @@ function seededRng(seed) {
 
 function getStringSeed(str) {
     let h = 5381;
-    const s = String(str || "default");
-    for (let i = 0; i < s.length; i++) {
-        h = Math.imul(33, h) ^ s.charCodeAt(i);
+    const raw = String(str || "default");
+    for (let i = 0; i < raw.length; i++) {
+        h = Math.imul(33, h) ^ raw.charCodeAt(i);
     }
     return Math.abs(h >>> 0);
 }
@@ -54,8 +35,8 @@ class EnhancedMusicCard {
     async generateCard(options = {}) {
         const cfg = {
             width: 900,
-            height: 290,
-            trackURI: options.trackURI || options.thumbnailURL || "",
+            height: 260,
+            trackURI: options.trackURI || "",
             songTitle: options.songTitle || "Unknown Track",
             songArtist: options.songArtist || "Unknown Artist",
             trackRequester: options.trackRequester || "Unknown",
@@ -80,100 +61,77 @@ class EnhancedMusicCard {
     _draw(ctx, cfg) {
         const W = cfg.width;
         const H = cfg.height;
-        const PAD = 26;
+        const PAD = 28;
 
-        ctx.fillStyle = THEME.bg;
-        ctx.fillRect(0, 0, W, H);
-
-        const cx = 14, cy = 14, cw = W - 28, ch = H - 28;
-        const r = 18;
-
-        ctx.fillStyle = THEME.card;
+        ctx.fillStyle = "#1a1a2e";
         ctx.beginPath();
-        ctx.roundRect(cx, cy, cw, ch, r);
+        ctx.roundRect(0, 0, W, H, 16);
         ctx.fill();
 
-        const glow = ctx.createRadialGradient(W * 0.5, H * 0.28, 0, W * 0.5, H * 0.28, W * 0.55);
-        glow.addColorStop(0, THEME.accentGlow);
-        glow.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.roundRect(cx, cy, cw, ch, r);
-        ctx.fill();
+        const innerLeft = PAD;
+        const innerRight = W - PAD;
 
-        ctx.strokeStyle = THEME.cardBorder;
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.roundRect(cx, cy, cw, ch, r);
-        ctx.stroke();
+        let y = 28;
 
-        const innerLeft = cx + PAD;
-        const innerRight = cx + cw - PAD;
-
-        this._drawHeader(ctx, cfg, cx, cy, innerLeft, innerRight);
-        this._drawWaveform(ctx, cfg, cx, cy, innerLeft, innerRight);
-        this._drawInfoLine(ctx, cfg, cx, cy, innerLeft, innerRight);
-    }
-
-    _drawHeader(ctx, cfg, cx, cy, innerLeft, innerRight) {
-        const boxSize = 56;
-        const boxX = innerLeft;
-        const boxY = cy + 22;
-
-        ctx.fillStyle = THEME.playBg;
-        ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxSize, boxSize, 12);
-        ctx.fill();
-
-        ctx.strokeStyle = THEME.playBorder;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxSize, boxSize, 12);
-        ctx.stroke();
-
-        const triCx = boxX + boxSize * 0.52;
-        const triCy = boxY + boxSize * 0.5;
-        const triH = 16;
-        const triW = triH * 0.88;
-        const playGrad = ctx.createLinearGradient(triCx - triW * 0.5, triCy - triH * 0.5, triCx + triW * 0.5, triCy + triH * 0.5);
-        playGrad.addColorStop(0, THEME.accentBright);
-        playGrad.addColorStop(1, THEME.accentMid);
-        ctx.fillStyle = playGrad;
-        ctx.beginPath();
-        ctx.moveTo(triCx - triW * 0.48, triCy - triH * 0.5);
-        ctx.lineTo(triCx - triW * 0.48, triCy + triH * 0.5);
-        ctx.lineTo(triCx + triW * 0.52, triCy);
-        ctx.closePath();
-        ctx.fill();
-
-        const textX = boxX + boxSize + 18;
-        const maxW = innerRight - textX;
-
-        ctx.fillStyle = THEME.nowPlayingLabel;
-        ctx.font = "700 10.5px 'Segoe UI', Arial, sans-serif";
+        ctx.font = "600 11px 'Segoe UI', Arial, sans-serif";
+        ctx.fillStyle = "rgba(255,255,255,0.45)";
         ctx.textAlign = "left";
         ctx.textBaseline = "alphabetic";
-        ctx.fillText("NOW PLAYING", textX, boxY + 17);
+        ctx.fillText("NOW PLAYING", innerLeft, y);
 
-        ctx.fillStyle = THEME.title;
-        ctx.font = "700 27px 'Segoe UI', Arial, sans-serif";
-        ctx.fillText(this._truncate(ctx, cfg.songTitle, maxW), textX, boxY + 40);
+        y += 26;
 
-        ctx.fillStyle = THEME.artist;
-        ctx.font = "400 15px 'Segoe UI', Arial, sans-serif";
-        ctx.fillText(this._truncate(ctx, cfg.songArtist, maxW), textX, boxY + 60);
+        ctx.font = "600 20px 'Segoe UI', Arial, sans-serif";
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(this._truncate(ctx, cfg.songTitle, innerRight - innerLeft), innerLeft, y);
+
+        y += 22;
+
+        ctx.font = "400 13px 'Segoe UI', Arial, sans-serif";
+        ctx.fillStyle = "rgba(255,255,255,0.50)";
+        ctx.fillText(this._truncate(ctx, cfg.songArtist, innerRight - innerLeft), innerLeft, y);
+
+        y += 20;
+
+        this._drawWaveform(ctx, cfg, innerLeft, innerRight, y);
+        y += 56;
+
+        this._drawProgress(ctx, cfg, innerLeft, innerRight, y);
+        y += 5;
+
+        y += 18;
+        const currentText = formatDuration(cfg.currentPositionMs);
+        const totalText = cfg.totalDurationMs > 0 ? formatDuration(cfg.totalDurationMs) : "LIVE";
+        ctx.font = "400 11px 'Segoe UI', Arial, sans-serif";
+        ctx.fillStyle = "rgba(255,255,255,0.40)";
+        ctx.textAlign = "left";
+        ctx.fillText(currentText, innerLeft, y);
+        ctx.textAlign = "right";
+        ctx.fillText(totalText, innerRight, y);
+
+        y += 20;
+
+        const loopLabel = cfg.loopMode === "none" ? "Loop off" : cfg.loopMode === "track" ? "Loop track" : "Loop queue";
+        const metaParts = [
+            loopLabel,
+            cfg.sourceName,
+            `Queue: ${cfg.queueLength}`,
+            cfg.trackRequester,
+        ];
+        ctx.font = "400 12px 'Segoe UI', Arial, sans-serif";
+        ctx.fillStyle = "rgba(255,255,255,0.45)";
+        ctx.textAlign = "left";
+        ctx.fillText(metaParts.join("   "), innerLeft, y);
     }
 
-    _drawWaveform(ctx, cfg, cx, cy, innerLeft, innerRight) {
-        const waveTop = cy + 104;
-        const waveH = 68;
-        const waveLeft = innerLeft;
-        const waveRight = innerRight;
-        const waveW = waveRight - waveLeft;
+    _drawWaveform(ctx, cfg, left, right, topY) {
+        const waveW = right - left;
+        const waveH = 40;
+        const midY = topY + waveH / 2;
 
-        const numBars = 55;
-        const totalSlotW = waveW / numBars;
-        const barW = Math.max(2, Math.floor(totalSlotW * 0.72));
+        const numBars = 60;
+        const slotW = waveW / numBars;
+        const barW = Math.max(2, Math.floor(slotW * 0.55));
 
         const seed = getStringSeed(cfg.trackURI || cfg.songTitle);
         const rng = seededRng(seed);
@@ -181,110 +139,59 @@ class EnhancedMusicCard {
         const heights = [];
         for (let i = 0; i < numBars; i++) {
             const pos = i / (numBars - 1);
-            const envelope = 0.35 + 0.65 * Math.pow(Math.sin(pos * Math.PI), 0.6);
-            const noise = rng() * 0.65 + rng() * 0.35;
+            const envelope = 0.30 + 0.70 * Math.pow(Math.sin(pos * Math.PI), 0.55);
+            const noise = rng() * 0.7 + rng() * 0.3;
             heights.push(clamp(noise * envelope, 0.08, 1.0));
         }
 
         const progress = cfg.totalDurationMs > 0
             ? clamp(cfg.currentPositionMs / cfg.totalDurationMs, 0, 1)
-            : (cfg.currentPositionMs > 0 ? 0.05 : 0);
+            : 0;
 
-        const progressPx = waveLeft + waveW * progress;
+        const progressPx = left + waveW * progress;
 
         for (let i = 0; i < numBars; i++) {
-            const slotCenter = waveLeft + (i + 0.5) * totalSlotW;
+            const slotCenter = left + (i + 0.5) * slotW;
             const barX = slotCenter - barW / 2;
             const barH = Math.max(3, Math.round(heights[i] * waveH));
-            const barTop = waveTop + waveH - barH;
 
             const isPlayed = slotCenter <= progressPx;
+            const isNearCurrent = Math.abs(slotCenter - progressPx) < slotW * 2.5;
 
-            if (isPlayed) {
-                const g = ctx.createLinearGradient(barX, barTop, barX, barTop + barH);
-                g.addColorStop(0, THEME.accentBright);
-                g.addColorStop(1, THEME.accentMid);
-                ctx.fillStyle = g;
+            if (isPlayed && isNearCurrent) {
+                ctx.fillStyle = "#a78bfa";
+            } else if (isPlayed) {
+                ctx.fillStyle = "#7c3aed";
             } else {
-                ctx.fillStyle = THEME.accentDim;
+                ctx.fillStyle = "#2a2040";
             }
+
             ctx.beginPath();
-            ctx.roundRect(barX, barTop, barW, barH, Math.min(2, barW * 0.3));
+            ctx.roundRect(barX, midY - barH / 2, barW, barH, Math.min(2, barW * 0.4));
             ctx.fill();
         }
-
-        const lineY = waveTop + waveH + 12;
-        const lineH = 3;
-        const lineR = 1.5;
-
-        ctx.fillStyle = THEME.progressBg;
-        ctx.beginPath();
-        ctx.roundRect(waveLeft, lineY, waveW, lineH, lineR);
-        ctx.fill();
-
-        if (progress > 0) {
-            const fillW = Math.max(lineH, waveW * progress);
-            const fillGrad = ctx.createLinearGradient(waveLeft, lineY, waveLeft + fillW, lineY);
-            fillGrad.addColorStop(0, THEME.accentMid);
-            fillGrad.addColorStop(1, THEME.accentBright);
-            ctx.fillStyle = fillGrad;
-            ctx.beginPath();
-            ctx.roundRect(waveLeft, lineY, fillW, lineH, lineR);
-            ctx.fill();
-
-            const dotX = waveLeft + fillW;
-            const dotY = lineY + lineH / 2;
-            ctx.fillStyle = "#ffffff";
-            ctx.shadowColor = THEME.accentBright;
-            ctx.shadowBlur = 6;
-            ctx.beginPath();
-            ctx.arc(dotX, dotY, 5.5, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        }
-
-        const timeY = lineY + 19;
-        ctx.font = "500 12px 'Segoe UI', Arial, sans-serif";
-        ctx.fillStyle = THEME.timeText;
-        ctx.textBaseline = "alphabetic";
-
-        ctx.textAlign = "left";
-        ctx.fillText(formatDuration(cfg.currentPositionMs), waveLeft, timeY);
-
-        ctx.textAlign = "right";
-        ctx.fillText(
-            cfg.totalDurationMs > 0 ? formatDuration(cfg.totalDurationMs) : "LIVE",
-            waveRight,
-            timeY
-        );
     }
 
-    _drawInfoLine(ctx, cfg, cx, cy, innerLeft, innerRight) {
-        const infoY = cy + (290 - 28) - 14;
+    _drawProgress(ctx, cfg, left, right, y) {
+        const w = right - left;
+        const h = 3;
+        const r = 1.5;
 
-        const stateLabel = cfg.isPaused ? "Paused" : "Playing";
-        const loopLabel = cfg.loopMode === "none" ? "Loop off" : cfg.loopMode === "track" ? "Loop track" : "Loop queue";
-        const durationText = cfg.totalDurationMs > 0 ? formatDuration(cfg.totalDurationMs) : "LIVE";
-        const queueText = `${cfg.queueLength} ${cfg.queueLength === 1 ? "song" : "songs"} in queue`;
+        ctx.fillStyle = "#333333";
+        ctx.beginPath();
+        ctx.roundRect(left, y, w, h, r);
+        ctx.fill();
 
-        const parts = [stateLabel, loopLabel, durationText, cfg.trackRequester, cfg.sourceName, queueText];
-        const sep = "  ";
+        const progress = cfg.totalDurationMs > 0
+            ? clamp(cfg.currentPositionMs / cfg.totalDurationMs, 0, 1)
+            : 0;
 
-        ctx.font = "400 12px 'Segoe UI', Arial, sans-serif";
-        ctx.textBaseline = "alphabetic";
-
-        let x = innerLeft;
-        for (let i = 0; i < parts.length; i++) {
-            ctx.fillStyle = THEME.artist;
-            ctx.textAlign = "left";
-            ctx.fillText(parts[i], x, infoY);
-            x += ctx.measureText(parts[i]).width;
-
-            if (i < parts.length - 1) {
-                ctx.fillStyle = THEME.dotSep;
-                ctx.fillText(sep, x, infoY);
-                x += ctx.measureText(sep).width;
-            }
+        if (progress > 0) {
+            const fillW = Math.max(h, w * progress);
+            ctx.fillStyle = "#7c3aed";
+            ctx.beginPath();
+            ctx.roundRect(left, y, fillW, h, r);
+            ctx.fill();
         }
     }
 
@@ -300,12 +207,12 @@ class EnhancedMusicCard {
     _errorCard(width, height) {
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "#1c1c1c";
+        ctx.fillStyle = "#1a1a2e";
         ctx.fillRect(0, 0, width, height);
         ctx.fillStyle = "#fff";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.font = "700 28px Arial";
+        ctx.font = "700 22px Arial";
         ctx.fillText("Music card render failed", width / 2, height / 2);
         return canvas.toBuffer("image/png");
     }
