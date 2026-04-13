@@ -552,27 +552,19 @@ async function initializePlayer(client) {
             let cardBufferForCache = null;
 
             if (useGeneratedSongCard) {
-                // Extract YouTube ID from track URI for better thumbnail fetching
-                let thumbnailURL = track.info.thumbnail || '';
                 const trackUri = track.info.uri || '';
-                
-                // If thumbnail is missing or invalid, try to extract from URI
-                if ((!thumbnailURL || !thumbnailURL.startsWith('http')) && trackUri) {
-                    // Pass the URI so we can extract YouTube ID from it
-                    thumbnailURL = trackUri;
-                }
-                
                 try {
                     const cardBuffer = await musicCard.generateCard({
-                        thumbnailURL: thumbnailURL,
-                        trackURI: trackUri, // Pass URI separately for YouTube ID extraction
+                        trackURI: trackUri,
                         songTitle: track.info.title,
                         songArtist: track.info.author || 'Unknown Artist',
                         trackRequester: requester,
-                        isPlaying: true,
-                        showVisualizer: config.showVisualizer !== false,
                         currentPositionMs: 0,
                         totalDurationMs: track.info.length || 0,
+                        isPaused: player.paused,
+                        loopMode: player.loop || 'none',
+                        queueLength: player.queue.length || 0,
+                        sourceName: formatSourceName(track.info?.sourceName),
                     });
                     if (cardBuffer && cardBuffer.length > 0) {
                         cardBufferForCache = cardBuffer;
