@@ -1,0 +1,79 @@
+
+<style>
+.player{background:#1a1a2e;border-radius:16px;padding:20px;font-family:system-ui,sans-serif;color:#fff;}
+.slabel{font-size:11px;letter-spacing:2px;opacity:0.4;text-transform:uppercase;margin:16px 0 8px;}
+.track-title{font-size:20px;font-weight:600;margin:0 0 2px;}
+.track-artist{font-size:13px;opacity:0.5;margin:0 0 14px;}
+.waveform{display:flex;align-items:center;gap:3px;height:40px;margin-bottom:10px;}
+.bar{width:4px;border-radius:2px;}
+.progress{height:3px;border-radius:2px;background:#2a2a4a;margin-bottom:6px;position:relative;}
+.progress-fill{height:3px;border-radius:2px;width:38%;background:#7c3aed;}
+.dot{width:10px;height:10px;background:#a78bfa;border-radius:50%;position:absolute;top:-4px;left:calc(38% - 5px);}
+.time{display:flex;justify-content:space-between;font-size:11px;opacity:0.4;margin-bottom:14px;}
+.meta{display:flex;gap:14px;font-size:12px;opacity:0.4;margin-bottom:4px;flex-wrap:wrap;}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+.btn{border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;}
+.divider{height:1px;background:#ffffff0f;margin:14px 0;}
+select.filter{background:#2a2a3e;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;width:100%;cursor:pointer;}
+</style>
+
+<div style="padding:1rem 0;">
+<div class="player">
+
+  <div style="background:#7c3aed22;border-radius:10px;padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+    <div style="width:48px;height:48px;background:#2a1a4e;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+      <svg width="20" height="20" viewBox="0 0 20 20"><polygon points="6,4 16,10 6,16" fill="#a78bfa"/></svg>
+    </div>
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;color:#a78bfa;text-transform:uppercase;margin-bottom:2px;">Now playing</div>
+      <p class="track-title">Arabella</p>
+      <p class="track-artist">Arctic Monkeys</p>
+    </div>
+  </div>
+
+  <div class="waveform">
+    <div class="bar" style="height:30%;background:#7c3aed"></div><div class="bar" style="height:60%;background:#7c3aed"></div><div class="bar" style="height:45%;background:#7c3aed"></div><div class="bar" style="height:80%;background:#7c3aed"></div><div class="bar" style="height:55%;background:#7c3aed"></div><div class="bar" style="height:90%;background:#a78bfa"></div><div class="bar" style="height:70%;background:#a78bfa"></div><div class="bar" style="height:100%;background:#a78bfa"></div><div class="bar" style="height:85%;background:#a78bfa"></div><div class="bar" style="height:65%;background:#a78bfa"></div><div class="bar" style="height:50%;background:#7c3aed"></div><div class="bar" style="height:40%;background:#7c3aed"></div><div class="bar" style="height:70%;background:#7c3aed"></div><div class="bar" style="height:55%;background:#7c3aed"></div><div class="bar" style="height:35%;background:#7c3aed"></div><div class="bar" style="height:25%;background:#2a2a4e"></div><div class="bar" style="height:45%;background:#2a2a4e"></div><div class="bar" style="height:60%;background:#2a2a4e"></div><div class="bar" style="height:35%;background:#2a2a4e"></div><div class="bar" style="height:50%;background:#2a2a4e"></div><div class="bar" style="height:40%;background:#2a2a4e"></div><div class="bar" style="height:30%;background:#2a2a4e"></div><div class="bar" style="height:55%;background:#2a2a4e"></div><div class="bar" style="height:45%;background:#2a2a4e"></div><div class="bar" style="height:65%;background:#2a2a4e"></div><div class="bar" style="height:50%;background:#2a2a4e"></div>
+  </div>
+  <div class="progress"><div class="progress-fill"></div><div class="dot"></div></div>
+  <div class="time"><span>1:24</span><span>3:28</span></div>
+
+  <div class="meta">
+    <span>Playing</span><span>Loop off</span><span>3m 28s</span><span>ello.txt</span><span>YouTube</span><span>0 songs in queue</span>
+  </div>
+
+  <div class="divider"></div>
+  <div class="slabel">Playback</div>
+  <div class="btns">
+    <button class="btn" style="background:#7c3aed;color:#fff;">⏸ Pause</button>
+    <button class="btn" style="background:#2a2a3e;color:#fff;">⏭ Skip</button>
+    <button class="btn" style="background:#2a2a3e;color:#fff;">🔊 Volume</button>
+    <button class="btn" style="background:#2a2a3e;color:#fff;">↺ Loop</button>
+    <button class="btn" style="background:#7f1d1d;color:#fff;">⏹ Stop</button>
+  </div>
+
+  <div class="divider"></div>
+  <div class="slabel">Library</div>
+  <div class="btns">
+    <button class="btn" style="background:#2a2a3e;color:#fff;">♡ Favorite</button>
+    <button class="btn" style="background:#2a2a3e;color:#fff;">+ Add</button>
+    <button class="btn" style="background:#2a2a3e;color:#fff;">≡ Queue</button>
+    <button class="btn" style="background:#2a2a3e;color:#fff;">💾 Save</button>
+    <button class="btn" style="background:#2a2a3e;color:#fff;">⇄ Shuffle</button>
+  </div>
+
+  <div class="divider"></div>
+  <div class="slabel">Effects</div>
+  <select class="filter">
+    <option>Select audio filter</option>
+    <option>Bassboost</option>
+    <option>Nightcore</option>
+    <option>Karaoke</option>
+    <option>Vaporwave</option>
+    <option>8D</option>
+  </select>
+
+  <div class="divider"></div>
+  <div style="font-size:12px;opacity:0.35;margin-top:4px;">Try: /help • /queue • /support • /search</div>
+
+</div>
+</div>

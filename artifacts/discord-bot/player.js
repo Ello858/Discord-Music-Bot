@@ -221,36 +221,44 @@ function clearProgressUpdates(guildId) {
     }
 }
 
+function buildWaveform(track, progressPercent) {
+    const waveChars = ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'];
+    const totalBars = 32;
+    const seed = (track.info?.uri || track.info?.title || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+    const played = Math.round((Math.min(100, Math.max(0, progressPercent || 0)) / 100) * totalBars);
+
+    return Array.from({ length: totalBars }, (_, i) => {
+        const val = Math.abs(Math.sin((seed * 0.01 + i) * 0.9) * Math.cos(i * 0.45));
+        const char = waveChars[Math.min(7, Math.floor(val * 8))];
+        return char;
+    }).join('');
+}
+
 function buildNowPlayingContainer(track, requesterName, t, progressBar, progressPercent, mediaUrl, actionRows = {}, playerState = {}) {
-    const musicIcon = getEmoji('music') || '🎵';
-    const titleIcon = getEmoji('music') || '🎧';
-    const infoIcon = getEmoji('info') || 'ℹ️';
-    const timeIcon = getEmoji('uptime') || '⏱️';
-    const queueIcon = getEmoji('queue') || '📄';
-    const userIcon = getEmoji('users') || '👤';
-    const sourceIcon = getEmoji('servers') || '🌐';
-    const playIcon = getEmoji('play') || '▶️';
-    const pauseIcon = getEmoji('pause') || '⏸️';
-    const loopIcon = getEmoji('settings') || '🔁';
-    const controlsIcon = getEmoji('settings') || '⚙️';
-    const manageIcon = getEmoji('owner') || '👑';
-    const filterIcon = getEmoji('servers') || '🌐';
-    const byText = t.trackInfo?.by || 'by';
     const isPaused = playerState.paused === true;
     const loopMode = playerState.loop || 'none';
-    const isLoopOn = loopMode !== 'none';
+    const loopLabel = loopMode === 'track'
+        ? (t.playerState?.loopTrack || 'Track Loop')
+        : loopMode === 'queue'
+            ? (t.playerState?.loopQueue || 'Queue Loop')
+            : (t.playerState?.loopOff || 'Loop off');
     const sourceName = formatSourceName(track.info?.sourceName);
     const stateLabel = isPaused ? (t.playerState?.paused || 'Paused') : (t.playerState?.playing || 'Playing');
-    const loopStateLabel = isLoopOn ? (t.playerState?.loopOn || 'Loop On') : (t.playerState?.loopOff || 'Loop Off');
-    const infoLine = `${timeIcon} ${formatDuration(track.info.length)} • ${userIcon} ${requesterName || (t.trackInfo?.unknown || 'Unknown')} • ${sourceIcon} ${sourceName}`;
-    const stateLine1 = `${isPaused ? pauseIcon : playIcon} ${stateLabel}`;
-    const stateLine2 = `${loopIcon} ${loopStateLabel}`;
-    const durationLine = `${timeIcon} ${formatDuration(track.info.length)}`;
-    const requesterLine = `${userIcon} ${requesterName || (t.trackInfo?.unknown || 'Unknown')}`;
-    const sourceLine = `${sourceIcon} ${sourceName}`;
-    const queueHint = `${queueIcon} ${playerState.queueLength || 0} ${playerState.queueLength === 1 ? 'song' : 'songs'} in queue`;
+    const queueCount = playerState.queueLength || 0;
+    const duration = formatDuration(track.info.length);
+    const requester = requesterName || (t.trackInfo?.unknown || 'Unknown');
     const tryHint = buildRandomTryHint(playerState.commandMentionMap);
-    const showTitleBlock = !mediaUrl;
+
+    const waveform = buildWaveform(track, progressPercent);
+
+    const currentMs = playerState.currentPosition || 0;
+    const currentTime = formatDuration(currentMs) || '0s';
+    const pct = Math.min(100, Math.max(0, progressPercent || 0));
+    const barLen = 18;
+    const filled = Math.round((pct / 100) * barLen);
+    const progressLine = `\`${currentTime}\` ${'─'.repeat(filled)}●${'─'.repeat(barLen - filled)} \`${duration}\``;
+
+    const metaLine = `${stateLabel} • ${loopLabel} • ${duration} • ${requester} • ${sourceName} • ${queueCount} ${queueCount === 1 ? 'song' : 'songs'} in queue`;
 
     const container = new ContainerBuilder();
 
@@ -260,62 +268,59 @@ function buildNowPlayingContainer(track, requesterName, t, progressBar, progress
                 .setURL(mediaUrl)
                 .setDescription(`${track.info?.title || 'Unknown Title'} - ${track.info?.author || 'Unknown Artist'}`)
         );
-
         container
-            .addSeparatorComponents((separator) => separator)
+            .addSeparatorComponents((sep) => sep)
             .addMediaGalleryComponents(mediaGallery);
     }
 
+    const showTitleBlock = !mediaUrl;
     if (showTitleBlock) {
         container.addTextDisplayComponents(
-            (textDisplay) => textDisplay.setContent(
-                `### ${titleIcon} ${track.info.title || 'Unknown Title'}\n` +
-                `${byText} ${track.info.author || (t.trackInfo?.unknownArtist || 'Unknown Artist')}`
+            (td) => td.setContent(
+                `-# NOW PLAYING\n` +
+                `**${track.info.title || 'Unknown Title'}**\n` +
+                `-# ${track.info.author || (t.trackInfo?.unknownArtist || 'Unknown Artist')}`
             )
         );
     }
 
-    const showSongDetails = !mediaUrl || config.metadataTag === true;
-    if (showSongDetails) {
+    const showMeta = !mediaUrl || config.metadataTag === true;
+    if (showMeta) {
         container
-            .addSeparatorComponents((separator) => separator)
+            .addSeparatorComponents((sep) => sep)
             .addTextDisplayComponents(
-                (textDisplay) => textDisplay.setContent(
-                    `### ${infoIcon} ${t.songDetailsTitle || 'Song Details'}\n` +
-                    `${stateLine1}\n` +
-                    `${stateLine2}\n` +
-                    `${durationLine}\n` +
-                    `${requesterLine}\n` +
-                    `${sourceLine}\n` +
-                    `${queueHint}`
+                (td) => td.setContent(
+                    `${waveform}\n` +
+                    `${progressLine}\n` +
+                    `-# ${metaLine}`
                 )
             );
     }
 
     if (actionRows?.playbackRow) {
         container
-            .addSeparatorComponents((separator) => separator)
-            .addTextDisplayComponents((textDisplay) => textDisplay.setContent(`### ${controlsIcon} Playback`))
+            .addSeparatorComponents((sep) => sep)
+            .addTextDisplayComponents((td) => td.setContent(`-# PLAYBACK`))
             .addActionRowComponents(actionRows.playbackRow);
     }
 
     if (actionRows?.manageRow) {
         container
-            .addSeparatorComponents((separator) => separator)
-            .addTextDisplayComponents((textDisplay) => textDisplay.setContent(`### ${manageIcon} Library`))
+            .addSeparatorComponents((sep) => sep)
+            .addTextDisplayComponents((td) => td.setContent(`-# LIBRARY`))
             .addActionRowComponents(actionRows.manageRow);
     }
 
     if (actionRows?.filterRow) {
         container
-            .addSeparatorComponents((separator) => separator)
-            .addTextDisplayComponents((textDisplay) => textDisplay.setContent(`### ${filterIcon} Effects`))
+            .addSeparatorComponents((sep) => sep)
+            .addTextDisplayComponents((td) => td.setContent(`-# EFFECTS`))
             .addActionRowComponents(actionRows.filterRow);
     }
 
     container
-        .addSeparatorComponents((separator) => separator)
-        .addTextDisplayComponents((textDisplay) => textDisplay.setContent(tryHint));
+        .addSeparatorComponents((sep) => sep)
+        .addTextDisplayComponents((td) => td.setContent(`-# ${tryHint}`));
 
     return container;
 }

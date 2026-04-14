@@ -5,104 +5,327 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElloMusic</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
+            background: #111118;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            font-family: 'Press Start 2P', cursive;
-            color: #00ff00;
-            text-align: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, sans-serif;
+            color: #fff;
+            padding: 1rem;
         }
 
-        h1, h2 {
-            margin: 0;
-            padding: 0;
-            animation: flicker 1.5s infinite alternate;
-        }
-
-        h1 {
-            font-size: 3em;
-        }
-
-        h2 {
-            font-size: 1.5em;
-        }
-
-        @keyframes flicker {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        .hacking-theme {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .player {
+            background: #1a1a2e;
+            border-radius: 18px;
+            padding: 24px;
             width: 100%;
-            height: 100%;
+            max-width: 480px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+
+        .now-playing-box {
+            background: rgba(124, 58, 237, 0.13);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .play-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(124, 58, 237, 0.25);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .np-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #a78bfa;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .track-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+            white-space: nowrap;
             overflow: hidden;
-            z-index: -1;
-            pointer-events: none;
+            text-overflow: ellipsis;
         }
 
-        .hacking-theme div {
-            position: absolute;
-            width: 2px;
+        .track-artist {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .waveform {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 44px;
+            margin-bottom: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            border-radius: 2px;
+            transition: height 0.3s ease;
+        }
+
+        .progress-track {
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            position: relative;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+
+        .progress-fill {
             height: 100%;
-            background: #00ff00;
-            opacity: 0;
-            animation: moveAndFade 5s linear infinite;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+            position: relative;
+            width: 38%;
         }
 
-        @keyframes moveAndFade {
-            0% {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100%);
-                opacity: 0;
-            }
+        .progress-dot {
+            width: 11px;
+            height: 11px;
+            background: #a78bfa;
+            border-radius: 50%;
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 6px rgba(167,139,250,0.7);
         }
 
-        .hacking-theme div:nth-child(odd) {
-            animation-duration: 4s;
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 10px;
         }
 
-        .hacking-theme div:nth-child(even) {
-            animation-duration: 6s;
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 4px;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 16px 0;
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.15s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-primary { background: #7c3aed; color: #fff; }
+        .btn-secondary { background: rgba(255,255,255,0.07); color: #fff; border: 1px solid rgba(255,255,255,0.08); }
+        .btn-danger { background: #7f1d1d; color: #fff; }
+
+        select.filter {
+            width: 100%;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        select.filter:focus { outline: none; border-color: rgba(124,58,237,0.5); }
+
+        .try-hint {
+            font-size: 11px;
+            color: rgba(255,255,255,0.25);
+            margin-top: 4px;
+        }
+
+        .try-hint a { color: #a78bfa; text-decoration: none; }
+        .try-hint a:hover { text-decoration: underline; }
+
+        @keyframes pulse {
+            0%, 100% { height: var(--h); }
+            50% { height: calc(var(--h) * 0.4); }
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <h1>ello.txt</h1>
-        <h2>ElloMusic 1.0</h2>
+<div class="player">
+
+    <div class="now-playing-box">
+        <div class="play-icon">
+            <svg width="18" height="18" viewBox="0 0 20 20"><polygon points="5,3 17,10 5,17" fill="#a78bfa"/></svg>
+        </div>
+        <div style="overflow:hidden">
+            <div class="np-label">Now Playing</div>
+            <div class="track-title" id="trackTitle">ElloMusic</div>
+            <div class="track-artist" id="trackArtist">Ready to play</div>
+        </div>
     </div>
-    <div class="hacking-theme">
-        <div style="left: 10%;"></div>
-        <div style="left: 20%;"></div>
-        <div style="left: 30%;"></div>
-        <div style="left: 40%;"></div>
-        <div style="left: 50%;"></div>
-        <div style="left: 60%;"></div>
-        <div style="left: 70%;"></div>
-        <div style="left: 80%;"></div>
-        <div style="left: 90%;"></div>
+
+    <div class="waveform" id="waveform"></div>
+
+    <div class="progress-track">
+        <div class="progress-fill" id="progressFill">
+            <div class="progress-dot"></div>
+        </div>
     </div>
+
+    <div class="time-row">
+        <span id="currentTime">0:00</span>
+        <span id="totalTime">0:00</span>
+    </div>
+
+    <div class="meta-row">
+        <span id="stateLabel">Ready</span>
+        <span>Loop off</span>
+        <span id="durationLabel">—</span>
+        <span>ello.txt</span>
+        <span>ElloMusic</span>
+        <span>0 songs in queue</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Playback</div>
+    <div class="btn-row">
+        <button class="btn btn-primary">⏸ Pause</button>
+        <button class="btn btn-secondary">⏭ Skip</button>
+        <button class="btn btn-secondary">🔊 Volume</button>
+        <button class="btn btn-secondary">↺ Loop</button>
+        <button class="btn btn-danger">⏹ Stop</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Library</div>
+    <div class="btn-row">
+        <button class="btn btn-secondary">♡ Favorite</button>
+        <button class="btn btn-secondary">+ Add</button>
+        <button class="btn btn-secondary">≡ Queue</button>
+        <button class="btn btn-secondary">💾 Save</button>
+        <button class="btn btn-secondary">⇄ Shuffle</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Effects</div>
+    <select class="filter">
+        <option value="">Select audio filter</option>
+        <option value="bassboost">Bassboost</option>
+        <option value="nightcore">Nightcore</option>
+        <option value="daycore">Daycore</option>
+        <option value="karaoke">Karaoke</option>
+        <option value="timescale">Timescale</option>
+        <option value="tremolo">Tremolo</option>
+        <option value="vibrato">Vibrato</option>
+        <option value="rotation">3D</option>
+        <option value="distortion">Distortion</option>
+        <option value="channelmix">Channel Mix</option>
+        <option value="lowpass">Low Pass</option>
+    </select>
+
+    <div class="divider"></div>
+
+    <div class="try-hint">
+        Try: <a href="#">/help</a> • <a href="#">/queue</a> • <a href="#">/support</a> • <a href="#">/search</a>
+    </div>
+
+</div>
+
+<script>
+    const waveformEl = document.getElementById('waveform');
+    const barCount = 40;
+    const bars = [];
+
+    for (let i = 0; i < barCount; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        const h = 20 + Math.abs(Math.sin(i * 0.8) * Math.cos(i * 0.4)) * 80;
+        bar.style.setProperty('--h', h + '%');
+        bar.style.height = h + '%';
+        const pct = i / barCount;
+        if (pct < 0.38) {
+            bar.style.background = `rgba(124,58,237,${0.6 + pct * 0.5})`;
+        } else if (pct < 0.42) {
+            bar.style.background = '#a78bfa';
+        } else {
+            bar.style.background = 'rgba(255,255,255,0.12)';
+        }
+        bar.style.animationDelay = (i * 0.05) + 's';
+        waveformEl.appendChild(bar);
+        bars.push(bar);
+    }
+
+    let animFrame;
+    let t = 0;
+    function animateBars() {
+        t += 0.04;
+        bars.forEach((bar, i) => {
+            const base = 20 + Math.abs(Math.sin(i * 0.8) * Math.cos(i * 0.4)) * 80;
+            const wave = Math.sin(t + i * 0.3) * 10;
+            bar.style.height = Math.max(8, base + wave) + '%';
+        });
+        animFrame = requestAnimationFrame(animateBars);
+    }
+    animateBars();
+</script>
 </body>
 </html>
