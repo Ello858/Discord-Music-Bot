@@ -262,40 +262,23 @@ function buildNowPlayingContainer(track, requesterName, t, progressBar, progress
 
     const container = new ContainerBuilder();
 
-    if (mediaUrl) {
-        const mediaGallery = new MediaGalleryBuilder().addItems(
-            (mediaItem) => mediaItem
-                .setURL(mediaUrl)
-                .setDescription(`${track.info?.title || 'Unknown Title'} - ${track.info?.author || 'Unknown Artist'}`)
-        );
-        container
-            .addSeparatorComponents((sep) => sep)
-            .addMediaGalleryComponents(mediaGallery);
-    }
+    container.addTextDisplayComponents(
+        (td) => td.setContent(
+            `-# NOW PLAYING\n` +
+            `**${track.info.title || 'Unknown Title'}**\n` +
+            `-# ${track.info.author || (t.trackInfo?.unknownArtist || 'Unknown Artist')}`
+        )
+    );
 
-    const showTitleBlock = !mediaUrl;
-    if (showTitleBlock) {
-        container.addTextDisplayComponents(
+    container
+        .addSeparatorComponents((sep) => sep)
+        .addTextDisplayComponents(
             (td) => td.setContent(
-                `-# NOW PLAYING\n` +
-                `**${track.info.title || 'Unknown Title'}**\n` +
-                `-# ${track.info.author || (t.trackInfo?.unknownArtist || 'Unknown Artist')}`
+                `${waveform}\n` +
+                `${progressLine}\n` +
+                `-# ${metaLine}`
             )
         );
-    }
-
-    const showMeta = !mediaUrl || config.metadataTag === true;
-    if (showMeta) {
-        container
-            .addSeparatorComponents((sep) => sep)
-            .addTextDisplayComponents(
-                (td) => td.setContent(
-                    `${waveform}\n` +
-                    `${progressLine}\n` +
-                    `-# ${metaLine}`
-                )
-            );
-    }
 
     if (actionRows?.playbackRow) {
         container
