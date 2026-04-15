@@ -1,5 +1,5 @@
 # fly.toml - Fly.io configuration for ElloMusic
-app = "ellomusic"  # Change this to whatever unique name you want
+app = "ellomusic"  # Change this to a unique name (must be globally unique on Fly.io)
 primary_region = "sin"  # Singapore — closest free region to India
 
 [build]
@@ -7,8 +7,8 @@ primary_region = "sin"  # Singapore — closest free region to India
 [env]
   NODE_ENV = "production"
 
-# No HTTP services needed — this is a Discord bot (no web traffic)
-# All env secrets (BOT_TOKEN, MONGODB_URI, etc.) are set via CLI, NOT here
+# No HTTP services block — Discord bots don't need inbound web traffic
+# All secrets (BOT_TOKEN, MONGODB_URI, etc.) are set via: flyctl secrets set KEY=value
 
 [[vm]]
   memory = "512mb"
